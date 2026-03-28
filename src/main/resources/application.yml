@@ -6,6 +6,21 @@ spring:
         name: api-gateway
     config:
         import: "optional:configserver:http://localhost:8888"
+    cloud:
+        gateway:
+            routes:
+                - id: user-service
+                  uri: lb://USER-SERVICE
+                  predicates:
+                    - Path=/users/**
+                
+                - id: catalog-service
+                  uri: lb://CATALOG-SERVICE
+                  predicates:
+                    - Path=/books/**
 
-
+                - id: media-service
+                  uri: lb://MEDIA-SERVICE
+                  predicates:
+                    - Path=/media/**
 
